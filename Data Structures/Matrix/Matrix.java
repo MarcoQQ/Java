@@ -196,7 +196,7 @@ public class Matrix {
 	* @return boolean
     */
      public boolean equals(Matrix other){
-        if(other == null || this == null)return false;
+        if(other == null)return false;
         if(other.getColumns() == getColumns() && other.getRows() == getRows()){
             for(int i = 0; i < getRows(); i++)
                 for(int j = 0; j < getColumns(); j++){
