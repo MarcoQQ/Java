@@ -9,13 +9,15 @@ public class Matrix {
 
 	public static void main(String[] args) {
 
-		int[][] data1 = new int[0][0];
+	int[][] data1 = new int[0][0];
         int[][] data2 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         int[][] data3 = {{1, 4, 7}, {2, 5, 8}, {3, 6, 9}};
+	int[][] data4 = {{1, 4, 7}, {2, 5, 8}, {3, 6, 9}};
 
         Matrix m1 = new Matrix(data1);
         Matrix m2 = new Matrix(data2);
         Matrix m3 = new Matrix(data3);
+	Matrix m4 = new Matrix(data4);	
 
         System.out.println("m1 --> Rows: " + m1.getRows() + " Columns: " + m1.getColumns());
         System.out.println("m2 --> Rows: " + m2.getRows() + " Columns: " + m2.getColumns());
@@ -32,12 +34,13 @@ public class Matrix {
         System.out.println("m2==m1: " + m2.equals(m1));                 //false
         System.out.println("m2==m2: " + m2.equals(m2));                 //true
         System.out.println("m2==m3: " + m2.equals(m3));                 //false
+	System.out.println("m3==m4: " + m3.equals(m4));                 //true
 
         //test operations (valid)
         System.out.println("2 * m2:\n" + m2.scale(2));
         System.out.println("m2 + m3:\n" + m2.plus(m3));
         System.out.println("m2 - m3:\n" + m2.minus(m3));
-        System.out.println("m2 * m3: \n"+m2.multiply(m3));
+        System.out.println("m2 * m3: \n"+m2.multiply(m3));              //product
 	}
 
 
@@ -191,34 +194,45 @@ public class Matrix {
 	* @param other : the other matrix
 	* @return boolean
     */
-    public boolean equals(Matrix other) {
-        return this == other;
+     public boolean equals(Matrix other){
+        if(other == null || this == null)return false;
+        if(other.getColumns() == getColumns() && other.getRows() == getRows()){
+            for(int i = 0; i < getRows(); i++)
+                for(int j = 0; j < getColumns(); j++){
+                    if(other.getElement(i, j) != getElement(i, j)){
+                        return false;
+                    }
+                }
+            return true;
+        }
+        return false;
     }
 
     /**
     * Returns the Matrix as a String in the following format
     *
-    * [ a b c ] ...
-    * [ x y z ] ...
-    * [ i j k ] ...
+    * [ a, b, c ] ...
+    * [ x, y, z ] ...
+    * [ i, j, k ] ...
     *    ...
     *
     * @return Matrix as String
 	* TODO: Work formatting for different digit sizes
     */
-    public String toString() {
+     public String toString() {
         String str = "";
-
-        for(int i = 0; i < this.data.length; i++) {
-        	str += "[ ";
-            for(int j = 0; j < this.data[0].length; j++) {
-            	str += data[i][j];
-            	str += " ";
+        for(int i = 0; i < getRows(); i++){
+            str +="[ ";
+            for(int j = 0; j < getColumns(); j++){
+                str += getElement(i, j);
+                if(j != getColumns()-1)
+                    str += ", ";
+                else
+                    str += " ";
             }
             str += "]";
             str += "\n";
         }
-
         return str;
     }
 }
