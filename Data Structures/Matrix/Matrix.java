@@ -26,6 +26,7 @@ public class Matrix {
         //check for reference issues
         System.out.println("m2 -->\n" + m2);
         data2[1][1] = 101;
+	//m2 = new Matrix(data2);
         System.out.println("m2 -->\n" + m2);
 
         //test equals
